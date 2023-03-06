@@ -4,7 +4,9 @@ namespace InScale.Functions
     using InScale.Functions.Registers;
     using Microsoft.Azure.Functions.Extensions.DependencyInjection;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
     using System.IO;
+    using System.Reflection;
 
     public class Startup : FunctionsStartup
     {
@@ -12,7 +14,9 @@ namespace InScale.Functions
         {
             FunctionsHostBuilderContext context = builder.GetContext();
 
-            builder.Services.RegisterCosmosDb(context.Configuration);
+            builder.Services.RegisterCosmosDb(context.Configuration)
+                            .RegisterStorage(context.Configuration)
+                            .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         }
 
         public override void ConfigureAppConfiguration(IFunctionsConfigurationBuilder builder)

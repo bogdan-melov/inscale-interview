@@ -89,7 +89,6 @@
                                                availableInRegionsValues,
                                                availableFrom,
                                                channelsValues);
-
             return Result.Ok(file);
         }
 
