@@ -1,4 +1,4 @@
-﻿namespace InScale.Domain.InScaleFile.Enum
+﻿namespace InScale.Application.InScaleFile.Domain.Enum
 {
     using FluentResults;
     using InScale.Contracts.Exceptions;

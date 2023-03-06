@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InScale.Functions", "InScal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InScale.Contracts", "InScale.Contracts\InScale.Contracts.csproj", "{9B42833E-0AD3-4920-8158-CB3E1AB4E184}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InScale.Persistance", "InScale.Persistance\InScale.Persistance.csproj", "{FA76351D-D5C3-4703-921F-47537B52D8B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InScale.Persistance", "InScale.Persistance\InScale.Persistance.csproj", "{FA76351D-D5C3-4703-921F-47537B52D8B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InScale.Domain", "InScale.Domain\InScale.Domain.csproj", "{90F8C1F5-5529-4CB1-B7E5-A6EC4F3B0770}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InScale.Application", "InScale.Domain\InScale.Application.csproj", "{90F8C1F5-5529-4CB1-B7E5-A6EC4F3B0770}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

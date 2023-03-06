@@ -1,8 +1,8 @@
-﻿namespace InScale.Domain.InScaleFile
+﻿namespace InScale.Application.InScaleFile.Domain
 {
     using FluentResults;
+    using InScale.Application.InScaleFile.Domain.Enum;
     using InScale.Domain.Common;
-    using InScale.Domain.InScaleFile.Enum;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -69,8 +69,8 @@
             List<Channel> channelsValues = new List<Channel>();
 
             List<Result<Channel>> channelsResults = channels.Select(x => Channel.Create(x)).ToList();
-            
-            foreach(Result<Channel> channelResult in channelsResults)
+
+            foreach (Result<Channel> channelResult in channelsResults)
             {
                 if (channelResult.IsFailed)
                 {
@@ -95,7 +95,7 @@
 
         public bool AvailableInRegion(Region region)
         {
-           return AvailableInRegions.Any(x => x.Equals(region));
+            return AvailableInRegions.Any(x => x.Equals(region));
         }
 
         public bool ForChannel(Channel channel)
