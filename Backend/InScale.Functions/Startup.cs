@@ -1,7 +1,13 @@
 ﻿[assembly: Microsoft.Azure.Functions.Extensions.DependencyInjection.FunctionsStartup(typeof(InScale.Functions.Startup))]
 namespace InScale.Functions
 {
+    using InScale.Commands.InScaleFile.Commands;
+    using InScale.Contracts.InScaleFile.Repositories;
+    using InScale.Contracts.Settings;
     using InScale.Functions.Registers;
+    using InScale.Functions.Settings;
+    using InScale.Persistance.InScaleFile.Repository;
+    using MediatR;
     using Microsoft.Azure.Functions.Extensions.DependencyInjection;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -15,8 +21,10 @@ namespace InScale.Functions
             FunctionsHostBuilderContext context = builder.GetContext();
 
             builder.Services.RegisterCosmosDb(context.Configuration)
+                            .AddSingleton<IStorageSettings, StorageSettings>()
+                            .AddScoped<IInScaleFileRepository, InScaleFileRepository>()
                             .RegisterStorage(context.Configuration)
-                            .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+                            .AddCQRS();
         }
 
         public override void ConfigureAppConfiguration(IFunctionsConfigurationBuilder builder)

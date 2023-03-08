@@ -3,5 +3,7 @@
     public interface IStorageSettings
     {
         string ConnectionString { get; }
+
+        string ContainerName { get; }
     }
 }

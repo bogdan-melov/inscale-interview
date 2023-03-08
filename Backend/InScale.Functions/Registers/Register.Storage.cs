@@ -14,14 +14,13 @@
         {
             IStorageSettings settings = new StorageSettings(configuration);
 
-            services.AddSingleton<IStorageService>(provider =>
+            return services.AddSingleton<IStorageService>(provider =>
             {
                 return new AzureStorageService(
                     client: new BlobServiceClient(
-                        connectionString: settings.ConnectionString),
-                    logger: provider.GetRequiredService<ILogger<AzureStorageService>>());
+                        connectionString: settings.ConnectionString));
             });
-            return services;
+
         }
     }
 }

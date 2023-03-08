@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InScale.Contracts\InScale.Contracts.csproj" />
+    <ProjectReference Include="..\InScale.Domain\InScale.Domain.csproj" />
   </ItemGroup>
 
 </Project>

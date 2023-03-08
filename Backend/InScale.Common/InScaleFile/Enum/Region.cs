@@ -1,14 +1,14 @@
-﻿namespace InScale.Application.InScaleFile.Domain.Enum
+﻿namespace InScale.Common.InScaleFile.Enum
 {
     using FluentResults;
-    using InScale.Contracts.Exceptions;
-    using InScale.Domain.Common;
+    using InScale.Common.Common.Enumeration;
+    using InScale.Common.Common.Result;
     using System.Linq;
 
     public class Region : Enumeration<byte>
     {
-        public static readonly Region USA = new Region(0, "USA");
-        public static readonly Region Europe = new Region(1, "EUROPE");
+        public static readonly Region USA = new Region(0, "US");
+        public static readonly Region Europe = new Region(1, "EU");
 
         public Region(byte id, string name) : base(id, name)
         {

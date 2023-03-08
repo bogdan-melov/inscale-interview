@@ -13,5 +13,7 @@
         }
 
         public string ConnectionString => _configuration.GetValue<string>("azureStorage:connectionString");
+
+        public string ContainerName => _configuration.GetValue<string>("azureStorage:containerName");
     }
 }

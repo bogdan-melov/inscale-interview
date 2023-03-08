@@ -1,12 +1,11 @@
 ﻿namespace InScale.Contracts.Storage
 {
+    using Azure;
     using Azure.Storage.Blobs;
     using Azure.Storage.Blobs.Models;
     using Azure.Storage.Blobs.Specialized;
     using Azure.Storage.Sas;
     using FluentResults;
-    using InScale.Contracts.Exceptions;
-    using Microsoft.Extensions.Logging;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -16,17 +15,13 @@
     public class AzureStorageService : IStorageService
     {
         private readonly BlobServiceClient _client;
-        private readonly ILogger<AzureStorageService> _logger;
 
-        public AzureStorageService(
-            BlobServiceClient client,
-            ILogger<AzureStorageService> logger)
+        public AzureStorageService(BlobServiceClient client)
         {
             _client = client;
-            _logger = logger;
         }
 
-        public async Task<Result<Uri>> GetSasUrlForDownloadAsync(string containerId, string fileId, DateTime expiresOn)
+        public async Task<Result<Uri>> GetSasUrlAsync(string containerId, string fileId, BlobSasPermissions permission, DateTime expiresOn)
         {
             try
             {
@@ -41,9 +36,7 @@
 
                 BlobClient blobClient = storageContainer.GetBlobClient(fileId);
 
-                if (!(await blobClient.ExistsAsync())) { throw new FileNotFoundException($"File with id {fileId} does not exist"); }
-
-                var sasBuilder = new BlobSasBuilder(permissions: BlobSasPermissions.Read, expiresOn: expiresOn)
+                var sasBuilder = new BlobSasBuilder(permissions: permission, expiresOn: expiresOn)
                 {
                     BlobContainerName = blobClient.GetParentBlobContainerClient().Name,
                     BlobName = blobClient.Name,
@@ -52,13 +45,11 @@
 
                 Uri sasUri = blobClient.GenerateSasUri(sasBuilder);
 
-                return sasUri;
+                return Result.Ok(sasUri);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Azure storage service failed for {containerId}, {fileId} and {expiresOn}");
-
-                return Result.Fail<Uri>(ResultErrorCodes.InternalServerError);
+                return Result.Fail<Uri>(ex.Message);
             }
         }
 
@@ -66,8 +57,7 @@
             string containerId,
             string fileId,
             byte[] content,
-            string contentType,
-            bool overwriteIfExists)
+            string contentType)
         {
             try
             {
@@ -88,7 +78,7 @@
 
                 using (Stream fileStream = new MemoryStream(content))
                 {
-                    await blobClient.UploadAsync(content: fileStream, overwrite: overwriteIfExists);
+                    await blobClient.UploadAsync(content: fileStream, overwrite: true);
                 }
 
                 await blobClient.SetHttpHeadersAsync(new BlobHttpHeaders { ContentType = contentType });
@@ -97,8 +87,7 @@
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Azure storage service failed for {containerId}, {fileId} and {contentType}");
-                return Result.Fail<UploadedFileResponseDto>(ResultErrorCodes.InternalServerError);
+                return Result.Fail<UploadedFileResponseDto>(ex.Message);
             }
         }
 
@@ -106,13 +95,15 @@
         {
             BlobContainerClient containerClient = _client.GetBlobContainerClient(containerId);
 
-            if (await containerClient.ExistsAsync())
+            Response<bool> containerExists = await containerClient.ExistsAsync();
+            if (containerExists.Value)
             {
                 return containerClient;
             }
             else
             {
-                throw new DirectoryNotFoundException($"Container with {nameof(containerId)} {containerId} doen't exist");
+                var newContainer = await _client.CreateBlobContainerAsync(containerId);
+                return newContainer.Value;
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿
-namespace InScale.Domain.Common
+namespace InScale.Common.Common.Enumeration
 {
     using System;
     using System.Collections.Generic;
@@ -46,11 +46,6 @@ namespace InScale.Domain.Common
             }
         }
 
-        public static TResult GetById<TResult>(T id) where TResult : Enumeration<T>, new()
-        {
-            return GetAll<TResult>().SingleOrDefault(x => x.Id.Equals(id));
-        }
-
         public override bool Equals(object obj)
         {
             var otherValue = obj as Enumeration<T>;
@@ -71,36 +66,6 @@ namespace InScale.Domain.Common
         public override int GetHashCode()
         {
             return Id.GetHashCode();
-        }
-
-        public static bool operator ==(Enumeration<T> a, Enumeration<T> b)
-        {
-            if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
-            {
-                return true;
-            }
-
-            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
-            {
-                return false;
-            }
-
-            return a.Equals(b);
-        }
-
-        public static bool operator !=(Enumeration<T> a, Enumeration<T> b)
-        {
-            return !(a == b);
-        }
-
-        public static Enumeration<T> operator +(Enumeration<T> a, Enumeration<T> b)
-        {
-            return a + b;
-        }
-
-        public static Enumeration<T> operator -(Enumeration<T> a, Enumeration<T> b)
-        {
-            return a - b;
         }
     }
 }

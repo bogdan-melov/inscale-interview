@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InScale.Common\InScale.Common.csproj" />
+    <ProjectReference Include="..\InScale.Contracts\InScale.Contracts.csproj" />
+    <ProjectReference Include="..\InScale.Domain\InScale.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,6 +1,7 @@
-﻿namespace InScale.Persistance.Common.Repositories
+﻿namespace InScale.Persistance.Common.Repository
 {
     using FluentResults;
+    using InScale.Common.Common.Result;
     using InScale.Contracts.Exceptions;
     using InScale.Persistance.Common.Entities;
     using Microsoft.Azure.Cosmos;
@@ -43,60 +44,6 @@
                 return HandleNoSqlException(ex);
             }
         }
-
-        protected async Task<Result> UpsertBulkAsync(IEnumerable<T> entities)
-        {
-            try
-            {
-                var concurrentTasks = new List<Task>();
-
-                foreach (var entity in entities)
-                {
-                    concurrentTasks.Add(_container.UpsertItemAsync(entity));
-                }
-
-                await Task.WhenAll(concurrentTasks);
-
-                return Result.Ok();
-            }
-            catch (NoSqlException ex)
-            {
-                return HandleNoSqlException(ex);
-            }
-        }
-
-        protected async Task<Result> UpdateAsync<F>(F entity) where F : Entity<F>
-        {
-            try
-            {
-                await _container.UpsertItemAsync(entity);
-
-                return Result.Ok();
-            }
-            catch (NoSqlException ex)
-            {
-                return HandleNoSqlException(ex);
-            }
-        }
-
-        protected async Task<Result> DeleteAsync(string partitionId, Guid entityUid)
-        {
-            try
-            {
-                await _container.DeleteItemAsync<T>(entityUid.ToString(), new PartitionKey(partitionId));
-
-                return Result.Ok();
-            }
-            catch (NoSqlException ex)
-            {
-                return HandleNoSqlException(ex);
-            }
-        }
-
-        protected IQueryable<T> GetCrossPartitionEntities(Expression<Func<T, bool>> predicate) =>
-            _container.GetItemLinqQueryable<T>(requestOptions: GetPagedQuerySettings())
-              .Where(e => _entityName.Equals(e.EntityName, StringComparison.InvariantCultureIgnoreCase))
-              .Where(predicate);
 
         protected IQueryable<T> GetPartitionedEntities(string partitionUid, Expression<Func<T, bool>>? predicate = default)
         {

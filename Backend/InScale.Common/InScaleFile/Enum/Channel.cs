@@ -1,8 +1,8 @@
-﻿namespace InScale.Application.InScaleFile.Domain.Enum
+﻿namespace InScale.Common.InScaleFile.Enum
 {
     using FluentResults;
-    using InScale.Contracts.Exceptions;
-    using InScale.Domain.Common;
+    using InScale.Common.Common.Enumeration;
+    using InScale.Common.Common.Result;
     using System.Linq;
 
     public class Channel : Enumeration<byte>

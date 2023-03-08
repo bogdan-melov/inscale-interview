@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\InScale.Contracts\InScale.Contracts.csproj" />
+    <PackageReference Include="FluentResults.Extensions.AspNetCore" Version="0.1.0" />
   </ItemGroup>
 
 </Project>

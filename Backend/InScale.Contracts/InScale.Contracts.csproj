@@ -8,7 +8,11 @@
 	<ItemGroup>
 		<PackageReference Include="FluentResults.Extensions.AspNetCore" Version="0.1.0" />
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.15.0" />
-		<PackageReference Include="MediatR" Version="12.0.1" />
+		<PackageReference Include="MediatR" Version="12.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\InScale.Domain\InScale.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

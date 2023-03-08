@@ -16,8 +16,8 @@
         [JsonProperty("version")]
         public string Version;
 
-        [JsonProperty("url")]
-        public string Url;
+        [JsonProperty("filePath")]
+        public string FilePath;
 
         [JsonProperty("availableInRegions")]
         public List<string> AvailableInRegions;
@@ -33,7 +33,7 @@
                            string fileId,
                            string previousVersion,
                            string version,
-                           string url,
+                           string filePath,
                            List<string> availableInRegions,
                            DateTime availableFrom,
                            List<string> channels) :base(uid, createdOn)
@@ -41,7 +41,7 @@
             FileId = fileId;
             PreviousVersion = previousVersion;
             Version = version;
-            Url = url;
+            FilePath = filePath;
             AvailableInRegions = availableInRegions;
             AvailableFrom = availableFrom;
             Channels = channels;
