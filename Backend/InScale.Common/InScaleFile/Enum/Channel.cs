@@ -41,25 +41,25 @@
 
         public static Result<Channel> Create(string channel)
         {
-            Channel accType = GetAll<Channel>().SingleOrDefault(f => f.Name == channel);
+            Channel _channel = GetAll<Channel>().SingleOrDefault(f => f.Name == channel);
 
-            if (accType == null)
+            if (_channel == null)
             {
                 return Result.Fail<Channel>(ResultErrorCodes.ChannelNotValid);
             }
 
-            return Result.Ok(accType);
+            return Result.Ok(_channel);
         }
-        private static Result<Channel> Create(byte accountType)
+        private static Result<Channel> Create(byte channel)
         {
-            Channel accType = GetAll<Channel>().SingleOrDefault(f => f.Id == accountType);
+            Channel _channel = GetAll<Channel>().SingleOrDefault(f => f.Id == channel);
 
-            if (accType == null)
+            if (_channel == null)
             {
                 return Result.Fail<Channel>(ResultErrorCodes.ChannelNotValid);
             }
 
-            return Result.Ok(accType);
+            return Result.Ok(_channel);
         }
     }
 }

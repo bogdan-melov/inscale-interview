@@ -51,14 +51,14 @@
         }
         private static Result<Region> Create(byte region)
         {
-            Region accType = GetAll<Region>().SingleOrDefault(f => f.Id == region);
+            Region _region = GetAll<Region>().SingleOrDefault(f => f.Id == region);
 
-            if (accType == null)
+            if (_region == null)
             {
                 return Result.Fail<Region>(ResultErrorCodes.ChannelNotValid);
             }
 
-            return Result.Ok(accType);
+            return Result.Ok(_region);
         }
     }
 }

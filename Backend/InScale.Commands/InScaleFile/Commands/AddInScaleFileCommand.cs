@@ -80,7 +80,7 @@
                                                           version: request.Version,
                                                           filePath: null,
                                                           availableInRegions: request.AvailableInRegions,
-                                                          availableFrom: request.AvailableFrom,
+                                                          availableFrom: request.AvailableFrom.ToUniversalTime(),
                                                           channels: request.Channels);
                 if (newInScaleFileResult.IsFailed)
                 {
@@ -100,11 +100,16 @@
                                                           version: request.Version,
                                                           filePath: null,
                                                           availableInRegions: request.AvailableInRegions,
-                                                          availableFrom: request.AvailableFrom,
+                                                          availableFrom: request.AvailableFrom.ToUniversalTime(),
                                                           channels: request.Channels);
                 if (newInScaleFileResult.IsFailed)
                 {
                     return newInScaleFileResult;
+                }
+
+                if (inScaleFilesResult.Value.Any(x => x.Version.Equals(newInScaleFileResult.Value.Version)))
+                {
+                    return Result.Fail<InScaleFile>(ResultErrorCodes.FileWithVersionExists);
                 }
 
                 if (newInScaleFileResult.Value.PreviousVersion.IsUpperVersionOf(newInScaleFileResult.Value.Version))

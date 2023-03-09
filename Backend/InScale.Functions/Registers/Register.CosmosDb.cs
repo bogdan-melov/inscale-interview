@@ -12,7 +12,6 @@
 
     public static partial class Register
     {
-
         public static IServiceCollection RegisterCosmosDb(this IServiceCollection services, IConfiguration configuration) =>
              services.RegisterDatabaseContext(configuration);
 

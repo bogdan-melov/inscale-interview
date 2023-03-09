@@ -3,7 +3,6 @@ namespace InScale.Common.Common.Enumeration
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Reflection;
 
     public abstract class Enumeration<T> where T : struct, IComparable

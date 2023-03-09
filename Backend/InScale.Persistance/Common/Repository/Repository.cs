@@ -42,10 +42,10 @@
             }
         }
 
-        protected IQueryable<T> GetPartitionedEntities<T>(string partitionUid, Expression<Func<T, bool>>? predicate = default)
+        protected IQueryable<T> GetPartitionedEntities<T>(string partitionKey, Expression<Func<T, bool>>? predicate = default)
         {
             QueryRequestOptions requestOptions = GetPagedQuerySettings();
-            requestOptions.PartitionKey = new PartitionKey(partitionUid);
+            requestOptions.PartitionKey = new PartitionKey(partitionKey);
 
             IQueryable<T> result =
                    _container.GetItemLinqQueryable<T>(allowSynchronousQueryExecution: true, requestOptions: requestOptions);

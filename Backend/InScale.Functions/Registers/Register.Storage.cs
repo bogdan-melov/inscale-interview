@@ -6,7 +6,6 @@
     using InScale.Functions.Settings;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
 
     public static partial class Register
     {
@@ -17,10 +16,8 @@
             return services.AddSingleton<IStorageService>(provider =>
             {
                 return new AzureStorageService(
-                    client: new BlobServiceClient(
-                        connectionString: settings.ConnectionString));
+                    client: new BlobServiceClient(connectionString: settings.ConnectionString));
             });
-
         }
     }
 }

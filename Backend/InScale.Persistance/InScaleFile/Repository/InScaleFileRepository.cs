@@ -21,7 +21,7 @@ namespace InScale.Persistance.InScaleFile.Repository
 
         public async Task<Result<List<InScaleFile>>> GetInScaleFilesByFileId(string fileId)
         {
-            IQueryable<Entities.InScaleFile> inScaleFilesQuery = GetPartitionedEntities<Entities.InScaleFile>(partitionUid: fileId);
+            IQueryable<Entities.InScaleFile> inScaleFilesQuery = GetPartitionedEntities<Entities.InScaleFile>(partitionKey: fileId);
 
             IReadOnlyList<Entities.InScaleFile> inScaleFileCosmosResponse = await inScaleFilesQuery.ExecuteQueryAsync();
 

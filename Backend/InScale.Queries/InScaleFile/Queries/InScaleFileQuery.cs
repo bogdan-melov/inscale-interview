@@ -92,7 +92,11 @@
                 }
 
                 return Result.Ok("You have hte latest update!");
+            }
 
+            if (dbInScaleFile.AvailableFrom > DateTime.UtcNow)
+            {
+                return Result.Fail<string>(ResultErrorCodes.NotFound);
             }
 
             Result<InScaleFile> InScalefileResult = dbInScaleFile.ToInScaleFile();

@@ -11,5 +11,6 @@
         public static string VersionNotValid = "VERSION_NOT_VALID";
         public static string FileNotForRegion = "FILE_NOT_FOR_REGION";
         public static string FileNotForChannel= "FILE_NOT_FOR_CHANNEL";
+        public static string FileWithVersionExists = "FILE_WITH_VERSION_EXISTS";
     }
 }

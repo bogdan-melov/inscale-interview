@@ -60,9 +60,9 @@
             string fileId, string version, ILogger log)
         {
             var query = new InScaleFileUriQuery(fileId: fileId,
-                                                          updateFromVersion: version,
-                                                          region: "EU",
-                                                          channel: "PUBLIC");
+                                                updateFromVersion: version,
+                                                region: "EU",
+                                                channel: "PUBLIC");
 
             Result<string> inScaleFileUrlResult = await _mediator.Send(query);
 
