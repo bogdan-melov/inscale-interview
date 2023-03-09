@@ -1,4 +1,4 @@
-﻿namespace InScale.Persistance.Common.Entities
+﻿namespace InScale.Queries.Common.Entities
 {
     using Newtonsoft.Json;
     using System;

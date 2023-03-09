@@ -1,5 +1,4 @@
-﻿
-namespace InScale.Domain.Common
+﻿namespace InScale.Domain.Common
 {
     using System;
 
@@ -7,12 +6,9 @@ namespace InScale.Domain.Common
     {
         public Guid Uid { get; }
 
-        public DateTime CreatedOn { get; }
-
-        public Entity(Guid uiId, DateTime createdOn)
+        public Entity(Guid uiId)
         {
             Uid = uiId;
-            CreatedOn = createdOn;
         }
     }
 }

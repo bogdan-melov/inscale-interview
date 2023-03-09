@@ -1,6 +1,6 @@
-﻿namespace InScale.Persistance.InScaleFile.Entities
+﻿namespace InScale.Queries.InScaleFile.Entities
 {
-    using InScale.Persistance.Common.Entities;
+    using InScale.Queries.Common.Entities;
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,7 @@
 
         [JsonProperty("previousVersion")]
         public string PreviousVersion;
-        
+
         [JsonProperty("version")]
         public string Version;
 
@@ -35,7 +35,7 @@
                            string filePath,
                            List<string> availableInRegions,
                            DateTime availableFrom,
-                           List<string> channels) :base(uid)
+                           List<string> channels) : base(uid)
         {
             FileId = fileId;
             PreviousVersion = previousVersion;

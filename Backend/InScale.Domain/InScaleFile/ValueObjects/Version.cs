@@ -1,6 +1,7 @@
 ﻿namespace InScale.Domain.InScaleFile.ValueObjects
 {
     using FluentResults;
+    using InScale.Common.Common.Result;
     using InScale.Domain.Common.ValueObject;
     using System;
     using System.Collections.Generic;
@@ -38,6 +39,11 @@
                 }
 
                 List<string> versionParts = version.Split('.').ToList();
+
+                if(versionParts.Count > 3)
+                {
+                    return Result.Fail<Version>(ResultErrorCodes.VersionNotValid);
+                }
 
                 return Result.Ok(new Version(Convert.ToInt32(versionParts[0]),
                                              Convert.ToInt32(versionParts[1]),

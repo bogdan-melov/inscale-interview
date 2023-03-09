@@ -3,35 +3,32 @@
     using FluentResults;
     using InScale.Common.Common.Result;
     using InScale.Contracts.Exceptions;
-    using InScale.Persistance.Common.Entities;
+    using InScale.Domain.Common;
     using Microsoft.Azure.Cosmos;
     using Microsoft.Extensions.Logging;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Net;
     using System.Threading.Tasks;
     using Result = FluentResults.Result;
 
-    public abstract class Repository<T> where T : Entity<T>
+    public abstract class Repository
     {
         private const int AUTO_DECIDE_ITEMS_BUFFER = -1;
         private const int AUTO_DECIDE_CONCURRENCY = -1;
         private const int RETURN_MAX_ITEMS = -1;
 
-        private readonly string _entityName = typeof(T).Name.ToUpperInvariant();
-
         protected readonly Container _container;
-        protected readonly ILogger<Repository<T>> _logger;
+        protected readonly ILogger<Repository> _logger;
 
-        protected Repository(Container container, ILogger<Repository<T>> logger)
+        protected Repository(Container container, ILogger<Repository> logger)
         {
             _container = container;
             _logger = logger;
         }
 
-        protected async Task<Result> AddAsync(T entity)
+        protected async Task<Result> AddAsync<T>(T entity)
         {
             try
             {
@@ -45,14 +42,13 @@
             }
         }
 
-        protected IQueryable<T> GetPartitionedEntities(string partitionUid, Expression<Func<T, bool>>? predicate = default)
+        protected IQueryable<T> GetPartitionedEntities<T>(string partitionUid, Expression<Func<T, bool>>? predicate = default)
         {
             QueryRequestOptions requestOptions = GetPagedQuerySettings();
             requestOptions.PartitionKey = new PartitionKey(partitionUid);
 
             IQueryable<T> result =
-                   _container.GetItemLinqQueryable<T>(allowSynchronousQueryExecution: true, requestOptions: requestOptions)
-                             .Where(e => _entityName.Equals(e.EntityName, StringComparison.InvariantCultureIgnoreCase));
+                   _container.GetItemLinqQueryable<T>(allowSynchronousQueryExecution: true, requestOptions: requestOptions);
 
             if (predicate != default)
             {
@@ -62,7 +58,7 @@
             return result;
         }
 
-        private Result<F> HandleNoSqlException<F>(NoSqlException ex) where F : Entity<F>
+        private Result<F> HandleNoSqlException<F>(NoSqlException ex) where F : Entity
         {
             switch (ex.HttpStatusCode)
             {
@@ -91,11 +87,11 @@
         }
 
         private QueryRequestOptions GetPagedQuerySettings() =>
-            new QueryRequestOptions
-            {
-                MaxBufferedItemCount = AUTO_DECIDE_ITEMS_BUFFER,
-                MaxConcurrency = AUTO_DECIDE_CONCURRENCY,
-                MaxItemCount = RETURN_MAX_ITEMS
-            };
+          new QueryRequestOptions
+          {
+              MaxBufferedItemCount = AUTO_DECIDE_ITEMS_BUFFER,
+              MaxConcurrency = AUTO_DECIDE_CONCURRENCY,
+              MaxItemCount = RETURN_MAX_ITEMS
+          };
     }
 }

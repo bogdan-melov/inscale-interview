@@ -2,7 +2,9 @@
 {
     using FluentResults;
     using InScale.Commands.InScaleFile.Commands;
+    using InScale.Contracts.Exceptions;
     using InScale.Domain.InScaleFile.Entities;
+    using InScale.Queries.InScaleFile.Queries;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Azure.WebJobs;
@@ -13,7 +15,6 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Web.Http;
-
     public partial class InScaleFunction
     {
         [FunctionName("UploadInScaleFile")]
@@ -41,15 +42,38 @@
 
                 if (inScaleFileResult.IsFailed)
                 {
+                    inScaleFileResult.Errors.LogErrors();
                     return new InternalServerErrorResult();
                 }
 
-                return new OkObjectResult(inScaleFileResult.Value);
+                return new OkResult();
             }
             catch (Exception ex)
             {
                 return new BadRequestObjectResult(ex);
             }
         }
+
+        [FunctionName("GetUpdateFile")]
+        public async Task<IActionResult> RunGetUpdateFileAsync(
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "file/{fileId}/version/{version}")] HttpRequest req,
+            string fileId, string version, ILogger log)
+        {
+            var query = new InScaleFileUriQuery(fileId: fileId,
+                                                          updateFromVersion: version,
+                                                          region: "EU",
+                                                          channel: "PUBLIC");
+
+            Result<string> inScaleFileUrlResult = await _mediator.Send(query);
+
+            if (inScaleFileUrlResult.IsFailed)
+            {
+                inScaleFileUrlResult.Errors.LogErrors();
+                return new InternalServerErrorResult();
+            }
+
+            return new OkObjectResult(inScaleFileUrlResult.Value);
+        }
     }
 }
+

@@ -25,14 +25,13 @@
         public List<Channel> Channels;
 
         private InScaleFile(Guid uid,
-                           DateTime createdOn,
                            string fileId,
                            ValueObjects.Version previousVersion,
                            ValueObjects.Version version,
                            string filePath,
                            List<Region> availableInRegions,
                            DateTime availableFrom,
-                           List<Channel> channels) : base(uid, createdOn)
+                           List<Channel> channels) : base(uid)
         {
             FileId = fileId;
             PreviousVersion = previousVersion;
@@ -44,7 +43,6 @@
         }
 
         public static Result<InScaleFile> Create(Guid uid,
-                                                  DateTime createdOn,
                                                   string fileId,
                                                   string previousVersion,
                                                   string version,
@@ -79,7 +77,6 @@
 
 
             InScaleFile file = new InScaleFile(uid,
-                                               createdOn,
                                                fileId,
                                                previousVersionResult.Value,
                                                versionResult.Value,

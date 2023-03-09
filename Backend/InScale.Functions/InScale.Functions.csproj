@@ -14,11 +14,9 @@
     <ProjectReference Include="..\InScale.Commands\InScale.Commands.csproj" />
     <ProjectReference Include="..\InScale.Contracts\InScale.Contracts.csproj" />
     <ProjectReference Include="..\InScale.Persistance\InScale.Persistance.csproj" />
+    <ProjectReference Include="..\InScale.Queries\InScale.Queries.csproj" />
   </ItemGroup>
     <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

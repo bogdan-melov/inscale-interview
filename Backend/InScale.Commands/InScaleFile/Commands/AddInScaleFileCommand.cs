@@ -61,7 +61,7 @@
             MemoryStream sream = new MemoryStream();
             await request.File.CopyToAsync(sream);
             byte[] fileBytes = sream.ToArray();
-            string fileId = request.File.FileName.Split('.')[0].ToLower();
+            string fileId = request.File.FileName.Split('.')[0];
 
             Result<List<InScaleFile>> inScaleFilesResult = await _inScaleFileRepository.GetInScaleFilesByFileId(fileId);
 
@@ -75,7 +75,6 @@
             if (!inScaleFilesResult.Value.Any())
             {
                 newInScaleFileResult = InScaleFile.Create(uid: Guid.NewGuid(),
-                                                          createdOn: DateTime.UtcNow,
                                                           fileId: fileId,
                                                           previousVersion: null,
                                                           version: request.Version,
@@ -96,7 +95,6 @@
                 InScaleFile fileWithLatestVersion = sortedFilesByVersion.Last();
 
                 newInScaleFileResult = InScaleFile.Create(uid: Guid.NewGuid(),
-                                                          createdOn: DateTime.UtcNow,
                                                           fileId: fileId,
                                                           previousVersion: fileWithLatestVersion.Version.ToString(),
                                                           version: request.Version,

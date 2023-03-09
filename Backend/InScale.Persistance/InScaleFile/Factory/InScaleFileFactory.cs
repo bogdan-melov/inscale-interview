@@ -29,7 +29,6 @@
 
         public static Result<InScaleFile> ToInScaleFile(this Entities.InScaleFile entity) =>
             InScaleFile.Create(entity.Uid,
-                               entity.CreatedOn,
                                entity.FileId,
                                entity.PreviousVersion,
                                entity.Version,
@@ -40,7 +39,6 @@
 
         public static Entities.InScaleFile ToInScaleFileEntity(this InScaleFile file)
         => new Entities.InScaleFile(file.Uid, 
-                                    file.CreatedOn, 
                                     file.FileId, 
                                     file.PreviousVersion.ToString(),
                                     file.Version.ToString(),

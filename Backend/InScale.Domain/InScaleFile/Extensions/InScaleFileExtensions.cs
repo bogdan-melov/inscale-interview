@@ -53,7 +53,7 @@
         public static bool IsUpperVersionOf(this ValueObjects.Version leftVersion, ValueObjects.Version rightVersion)
         {
             return (leftVersion.Major > rightVersion.Major) ||
-                   (leftVersion.Major >= rightVersion.Major && leftVersion.Minor >= rightVersion.Minor) ||
+                   (leftVersion.Major >= rightVersion.Major && leftVersion.Minor > rightVersion.Minor) ||
                    (leftVersion.Major >= rightVersion.Major && leftVersion.Minor >= rightVersion.Minor && leftVersion.Micro >= rightVersion.Micro);
         }
     }

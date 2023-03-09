@@ -49,7 +49,7 @@
             }
             catch (Exception ex)
             {
-                return Result.Fail<Uri>(ex.Message);
+                return Result.Fail(new Error(ex.Message).CausedBy(ex));
             }
         }
 
@@ -87,7 +87,7 @@
             }
             catch (Exception ex)
             {
-                return Result.Fail<UploadedFileResponseDto>(ex.Message);
+                return Result.Fail(new Error(ex.Message).CausedBy(ex));
             }
         }
 

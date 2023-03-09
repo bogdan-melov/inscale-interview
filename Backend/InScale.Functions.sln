@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InScale.Persistance", "InSc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InScale.Domain", "InScale.Domain\InScale.Domain.csproj", "{90F8C1F5-5529-4CB1-B7E5-A6EC4F3B0770}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InScale.Commands", "InScale.Commands\InScale.Commands.csproj", "{3F83CAEE-7756-46A3-BDBE-CEDA6DD542FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InScale.Commands", "InScale.Commands\InScale.Commands.csproj", "{3F83CAEE-7756-46A3-BDBE-CEDA6DD542FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InScale.Common", "InScale.Common\InScale.Common.csproj", "{2974899E-DC2D-49EB-BD0B-29A7E642B8C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InScale.Common", "InScale.Common\InScale.Common.csproj", "{2974899E-DC2D-49EB-BD0B-29A7E642B8C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InScale.Queries", "InScale.Queries\InScale.Queries.csproj", "{36B11438-6B72-473C-82A2-4A9D82151358}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{2974899E-DC2D-49EB-BD0B-29A7E642B8C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2974899E-DC2D-49EB-BD0B-29A7E642B8C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2974899E-DC2D-49EB-BD0B-29A7E642B8C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36B11438-6B72-473C-82A2-4A9D82151358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36B11438-6B72-473C-82A2-4A9D82151358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36B11438-6B72-473C-82A2-4A9D82151358}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36B11438-6B72-473C-82A2-4A9D82151358}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
